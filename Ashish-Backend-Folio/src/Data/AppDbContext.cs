@@ -11,5 +11,17 @@ namespace Ashish_Backend_Folio.Data
 
         // Add DbSets for Projects, BlogPosts, etc.
         // public DbSet<Project> Projects { get; set; }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            // customizations if any
+            builder.Entity<RefreshToken>().HasIndex(rt => rt.Token).IsUnique();
+            builder.Entity<RefreshToken>().HasIndex(rt => rt.UserId);
+
+
+        }
     }
 }

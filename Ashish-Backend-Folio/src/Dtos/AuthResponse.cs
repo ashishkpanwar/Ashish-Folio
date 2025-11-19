@@ -5,6 +5,7 @@
         public string Token { get; set; }
         public string UserName { get; set; }
         public IEnumerable<string> Roles { get; set; }
+        public string refreshToken { get; set; }
     }
 
 }
