@@ -57,6 +57,18 @@ namespace Ashish_Backend_Folio.Services
 
             return new RefreshResult(newJwt, createRes.Token);
         }
+
+        public async Task<bool> RevokeRefreshToken(string refreshToken, CancellationToken ct = default)
+        {
+            var revokeResult = await _refreshTokenService.RevokeRefreshTokenAsync(refreshToken, null, ct);
+            return revokeResult.Success;
+
+        }
+        public async Task<bool> RevokeAllForUser(string userId, CancellationToken ct = default)
+        {
+            var revokeResult = await _refreshTokenService.RevokeRefreshTokenAsync(null, userId, ct);
+            return revokeResult.Success;
+        }
     }
 
 }

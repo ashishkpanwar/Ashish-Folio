@@ -8,6 +8,10 @@ namespace Ashish_Backend_Folio.Interfaces
     {
         Task<AuthResponse> LoginAsync(LoginRequest model, CancellationToken ct = default);
         Task<RefreshResult> RefreshAsync(string refreshToken, CancellationToken ct = default);
+
+        Task<bool> RevokeRefreshToken(string refreshToken, CancellationToken ct = default);
+        Task<bool> RevokeAllForUser(string userId, CancellationToken ct = default);
+
     }
 
 }
