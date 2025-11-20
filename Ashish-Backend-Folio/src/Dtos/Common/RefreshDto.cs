@@ -1,4 +1,4 @@
-﻿namespace Ashish_Backend_Folio.Dtos
+﻿namespace Ashish_Backend_Folio.Dtos.Common
 {
     public class RefreshDto
     {
