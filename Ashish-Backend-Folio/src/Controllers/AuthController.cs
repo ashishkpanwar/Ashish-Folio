@@ -44,28 +44,17 @@ namespace Ashish_Backend_Folio.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest model)
         {
-            var existing = await _userManager.FindByEmailAsync(model.Email);
-            if (existing != null)
-                return BadRequest(new { message = "Email is already taken" });
-
-            var user = new ApplicationUser
+            try
             {
-                UserName = model.Email,
-                Email = model.Email,
-                DisplayName = model.DisplayName
-            };
+                var regiterResult = await _authService.RegisterUserAsync(model);
 
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
-
-            // Optionally assign role: default "User"
-            await _userManager.AddToRoleAsync(user, "User");
-
-            var roles = await _userManager.GetRolesAsync(user);
-            var token = await _tokenService.CreateTokenAsync(user, roles);
-
-            return Ok(new AuthResponse { token = token, userName = user.UserName, roles = roles });
+                return Ok(regiterResult);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpPost("login")]

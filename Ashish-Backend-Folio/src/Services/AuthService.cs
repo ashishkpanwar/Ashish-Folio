@@ -25,6 +25,35 @@ namespace Ashish_Backend_Folio.Services
             _tokenService = tokenService;
         }
 
+        public async Task<AuthResponse> RegisterUserAsync(RegisterRequest model, CancellationToken ct = default)
+        {
+            var existing = await _userManager.FindByEmailAsync(model.Email);
+            if (existing != null)
+                throw new Exception("Email is already taken");
+                //return BadRequest(new { message = "Email is already taken" });
+
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                DisplayName = model.DisplayName
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                throw new Exception("something wrong while creating user");
+
+            // Optionally assign role: default "User"
+            await _userManager.AddToRoleAsync(user, "User");
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = await _tokenService.CreateTokenAsync(user, roles);
+            var refresh = await _refreshTokenService.CreateRefreshTokenAsync(user, ct);
+
+            return new AuthResponse { token = token, userName = user.UserName, roles = roles, refreshToken = refresh.Token };
+        }
+
+
         public async Task<AuthResponse> LoginAsync(LoginRequest loginModel, CancellationToken ct = default)
         {
             var user = await _userManager.FindByEmailAsync(loginModel.Email) ?? throw new UnauthorizedAccessException();
