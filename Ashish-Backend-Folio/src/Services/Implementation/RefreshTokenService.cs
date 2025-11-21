@@ -1,28 +1,30 @@
-﻿namespace Ashish_Backend_Folio.Services
+﻿namespace Ashish_Backend_Folio.Services.Implementation
 {
+    using System.Linq;
     // Services/RefreshTokenService.cs
     using System.Security.Cryptography;
     using System.Text;
-    using Ashish_Backend_Folio.Data;
     using Ashish_Backend_Folio.Dtos.Response;
     using Ashish_Backend_Folio.Interfaces;
     using Ashish_Backend_Folio.Models;
+    using Ashish_Backend_Folio.Repositories.Implementation;
+    using Ashish_Backend_Folio.Repositories.Interface;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     public class RefreshTokenService : IRefreshTokenService
     {
-        private readonly AppDbContext _db;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
         private readonly TimeSpan _refreshLifetime;
         private readonly bool _useHash;
 
-        public RefreshTokenService(AppDbContext db,
+        public RefreshTokenService(UnitOfWork unitOfWork,
                                    UserManager<ApplicationUser> userManager,
                                    IConfiguration config)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _config = config;
 
@@ -65,8 +67,8 @@
                 UserId = user.Id
             };
 
-            _db.RefreshTokens.Add(entity);
-            await _db.SaveChangesAsync(ct);
+            await _unitOfWork.RefreshTokens.AddAsync(entity, ct);
+            await _unitOfWork.CommitAsync(ct);
 
             return new RefreshTokenResult(raw, expires);
         }
@@ -76,9 +78,8 @@
             if (string.IsNullOrWhiteSpace(refreshToken)) return (null, null);
             var lookup = _useHash ? Hash(refreshToken) : refreshToken;
 
-            var tokenEntity = await _db.RefreshTokens
-                .Include(rt => rt.User)
-                .SingleOrDefaultAsync(rt => rt.Token == lookup, ct);
+            var tokenEntity = await _unitOfWork.RefreshTokens.GetByTokenAsync(lookup, ct);
+
 
             if (tokenEntity == null) return (null, null);
             if (tokenEntity.IsRevoked || tokenEntity.Expires < DateTime.UtcNow) return (null, null);
@@ -108,8 +109,8 @@
                 UserId = user.Id
             };
 
-            _db.RefreshTokens.Add(newEntity);
-            await _db.SaveChangesAsync(ct);
+            await _unitOfWork.RefreshTokens.AddAsync(newEntity, ct);
+            await _unitOfWork.CommitAsync(ct);
 
             // create new access token is responsibility of IAuthService (token generation)
             return new RefreshResult(newRaw, newEntity.Expires.ToString()); // we'll keep signature change below
@@ -136,8 +137,8 @@
                 UserId = user.Id
             };
 
-            _db.RefreshTokens.Add(newEntity);
-            await _db.SaveChangesAsync();
+            await _unitOfWork.RefreshTokens.AddAsync(newEntity);
+            await _unitOfWork.CommitAsync();
 
             return new RefreshResult(newRaw, newRaw); // placeholder; actual access token created in IAuthService
         }
@@ -150,27 +151,27 @@
             if (!string.IsNullOrWhiteSpace(refreshToken))
             {
                 var lookup = _useHash ? Hash(refreshToken) : refreshToken;
-                var ent = await _db.RefreshTokens.SingleOrDefaultAsync(rt => rt.Token == lookup, ct);
+                var ent = await _unitOfWork.RefreshTokens.GetByTokenAsync(lookup, ct);
                 if (ent == null) return new RevokeResult(false);
                 ent.IsRevoked = true;
-                await _db.SaveChangesAsync(ct);
+                await _unitOfWork.CommitAsync(ct);
                 return new RevokeResult(true);
             }
 
             // revoke all for user
-            var tokens = await _db.RefreshTokens.Where(rt => rt.UserId == userId && !rt.IsRevoked).ToListAsync(ct);
+            var tokens = await _unitOfWork.RefreshTokens.GetByUserIdAsync(userId, ct); ;
             tokens.ForEach(t => t.IsRevoked = true);
-            await _db.SaveChangesAsync(ct);
+            await _unitOfWork.CommitAsync(ct);
             return new RevokeResult(true);
         }
 
         public async Task<int> CleanupExpiredTokensAsync(CancellationToken ct = default)
         {
-            var stale = await _db.RefreshTokens.Where(rt => rt.Expires < DateTime.UtcNow.AddDays(-30)).ToListAsync(ct);
+            var stale = await _unitOfWork.RefreshTokens.CleanupExpiredTokensAsync(ct);
             if (!stale.Any()) return 0;
-            _db.RefreshTokens.RemoveRange(stale);
-            await _db.SaveChangesAsync(ct);
-            return stale.Count;
+            _unitOfWork.RefreshTokens.RemoveRange(stale);
+            await _unitOfWork.CommitAsync(ct);
+            return stale.Count();
         }
     }
 

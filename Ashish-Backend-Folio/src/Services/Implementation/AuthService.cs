@@ -4,7 +4,7 @@ using Ashish_Backend_Folio.Interfaces;
 using Ashish_Backend_Folio.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace Ashish_Backend_Folio.Services
+namespace Ashish_Backend_Folio.Services.Implementation
 {
     // Services/AuthService.cs
     public class AuthService : IAuthService
@@ -30,7 +30,7 @@ namespace Ashish_Backend_Folio.Services
             var existing = await _userManager.FindByEmailAsync(model.Email);
             if (existing != null)
                 throw new Exception("Email is already taken");
-                //return BadRequest(new { message = "Email is already taken" });
+            //return BadRequest(new { message = "Email is already taken" });
 
             var user = new ApplicationUser
             {
@@ -47,7 +47,7 @@ namespace Ashish_Backend_Folio.Services
             await _userManager.AddToRoleAsync(user, "User");
 
             var roles = await _userManager.GetRolesAsync(user);
-            var token = await _tokenService.CreateTokenAsync(user, roles);
+            var token = await _tokenService.CreateAccessTokenAsync(user, roles);
             var refresh = await _refreshTokenService.CreateRefreshTokenAsync(user, ct);
 
             return new AuthResponse { token = token, userName = user.UserName, roles = roles, refreshToken = refresh.Token };
@@ -62,7 +62,7 @@ namespace Ashish_Backend_Folio.Services
             if (!res.Succeeded) throw new UnauthorizedAccessException();
 
             var roles = await _userManager.GetRolesAsync(user);
-            var jwt = await _tokenService.CreateTokenAsync(user, roles);
+            var jwt = await _tokenService.CreateAccessTokenAsync(user, roles);
 
             var refresh = await _refreshTokenService.CreateRefreshTokenAsync(user, ct);
 
@@ -82,7 +82,7 @@ namespace Ashish_Backend_Folio.Services
 
             // create new jwt
             var roles = await _userManager.GetRolesAsync(user);
-            var newJwt = await _tokenService.CreateTokenAsync(user, roles);
+            var newJwt = await _tokenService.CreateAccessTokenAsync(user, roles);
 
             return new RefreshResult(newJwt, createRes.Token);
         }

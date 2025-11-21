@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Helper\" />
+    <Folder Include="Services\Interface\" />
   </ItemGroup>
 
 </Project>

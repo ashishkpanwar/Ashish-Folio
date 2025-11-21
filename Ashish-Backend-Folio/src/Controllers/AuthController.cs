@@ -1,15 +1,14 @@
 ﻿using Ashish_Backend_Folio.Interfaces;
-using Ashish_Backend_Folio.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Ashish_Backend_Folio.Data;
-using Microsoft.EntityFrameworkCore;
 using Ashish_Backend_Folio.Dtos.Request;
 using Ashish_Backend_Folio.Dtos.Response;
 using Ashish_Backend_Folio.Dtos.Common;
+using Ashish_Backend_Folio.Models;
 
 namespace Ashish_Backend_Folio.Controllers
 {
@@ -18,26 +17,14 @@ namespace Ashish_Backend_Folio.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ITokenService _tokenService;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly AppDbContext _db;
-        private readonly IRefreshTokenService _refreshTokenService;
         private readonly IAuthService _authService;
 
 
         public AuthController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ITokenService tokenService,
-            AppDbContext dbContext,
-            IRefreshTokenService refreshTokenService,
             IAuthService authService)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
-            _tokenService = tokenService;
-            _db = dbContext;
-            _refreshTokenService = refreshTokenService;
             _authService = authService;
         }
 

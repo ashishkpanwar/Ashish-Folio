@@ -1,14 +1,16 @@
 using System.Text;
 using Ashish_Backend_Folio.Data;
 using Ashish_Backend_Folio.Interfaces;
+using Ashish_Backend_Folio.Services.Implementation;
 using Ashish_Backend_Folio.Models;
-using Ashish_Backend_Folio.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Ashish_Backend_Folio.Repositories.Interface;
+using Ashish_Backend_Folio.Repositories.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 

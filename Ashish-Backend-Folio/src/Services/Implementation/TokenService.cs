@@ -5,9 +5,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Ashish_Backend_Folio.Services
+namespace Ashish_Backend_Folio.Services.Implementation
 {
-    public class TokenService: ITokenService
+    public class TokenService : ITokenService
     {
 
         private readonly IConfiguration _config;
@@ -17,7 +17,7 @@ namespace Ashish_Backend_Folio.Services
             _config = config;
         }
 
-        public Task<string> CreateTokenAsync(ApplicationUser user, IList<string> roles)
+        public Task<string> CreateAccessTokenAsync(ApplicationUser user, IList<string> roles)
         {
             var jwt = _config.GetSection("Jwt");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]));
