@@ -8,10 +8,11 @@ namespace Ashish_Backend_Folio.Repositories.Implementation
     {
         private readonly AppDbContext _context;
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(AppDbContext context, 
+            IRefreshTokenRepository refreshTokenRepository)
         {
             _context = context;
-            RefreshTokens = new RefreshTokenRepository(_context);
+            RefreshTokens = refreshTokenRepository;
         }
 
         public IRefreshTokenRepository RefreshTokens { get; private set; }

@@ -10,7 +10,6 @@
     using Ashish_Backend_Folio.Repositories.Implementation;
     using Ashish_Backend_Folio.Repositories.Interface;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
 
     public class RefreshTokenService : IRefreshTokenService
     {
