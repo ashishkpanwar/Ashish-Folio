@@ -4,11 +4,19 @@ using Ashish_Backend_Folio.Models;
 using Ashish_Backend_Folio.Repositories.Implementation;
 using Ashish_Backend_Folio.Repositories.Interface;
 using Ashish_Backend_Folio.Services.Implementation;
+using Ashish_Backend_Folio.Services.Interface;
+using Ashish_Backend_Folio.Storage.Implementation;
+using Ashish_Backend_Folio.Storage.Interface;
+using Ashish_Backend_Folio.Storage.Models;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 
@@ -34,6 +42,18 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
+//Cloud Services
+var kvUrl = builder.Configuration["KeyVault:VaultUri"]; // e.g., https://myvault.vault.azure.net/
+builder.Services.AddSingleton(new SecretClient(new Uri(kvUrl), new DefaultAzureCredential()));
+
+builder.Services.AddSingleton(sp =>
+    new BlobServiceClient(new Uri(builder.Configuration["Blob:ServiceUri"]), new DefaultAzureCredential()));
+builder.Services.AddScoped<IBlobService,BlobService>();
+
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
+
+
+
 // Application services
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -41,10 +61,10 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// JWT Configuration
-var jwtSection = builder.Configuration.GetSection("Jwt");
-var jwtKey = jwtSection["Key"] ?? throw new InvalidOperationException("Jwt:Key is not configured");
-var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+//service bus
+builder.Services.AddSingleton<IServiceBusPublisher, ServiceBusPublisher>();
+
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -83,6 +103,44 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// ======================================================
+//  JWT Options (mapped to POCO)
+// ======================================================
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
+
+// ======================================================
+//  Secret Provider abstraction
+// ======================================================
+builder.Services.AddSingleton<ISecretProvider, KeyVaultSecretProvider>();
+
+// ======================================================
+//  JWT TokenValidationParameters configuration (lazy-loaded)
+// ======================================================
+builder.Services.AddSingleton<TokenValidationParameters>(sp =>
+{
+    var opts = sp.GetRequiredService<IOptions<JwtOptions>>().Value;
+    var secretProvider = sp.GetRequiredService<ISecretProvider>();
+
+    // fetch from Key Vault
+    var signingKey = secretProvider
+        .GetSecretAsync(opts.SigningKeySecretName)
+        .GetAwaiter()
+        .GetResult();
+
+    return new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = opts.Issuer,
+        ValidateAudience = true,
+        ValidAudience = opts.Audience,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.FromSeconds(30)
+    };
+});
+
+
 
 builder.Services
     .AddAuthentication(options =>
@@ -90,22 +148,7 @@ builder.Services
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = true;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSection["Issuer"],
-            ValidAudience = jwtSection["Audience"],
-            IssuerSigningKey = signingKey,
-            ClockSkew = TimeSpan.FromSeconds(30)
-        };
-    });
+    .AddJwtBearer();
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("RequireAdminRole", policy =>
