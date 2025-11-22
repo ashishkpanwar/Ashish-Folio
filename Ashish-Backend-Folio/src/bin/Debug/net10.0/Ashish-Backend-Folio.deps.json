@@ -15,6 +15,9 @@
           "Microsoft.ApplicationInsights.AspNetCore": "2.23.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.0",
+          "Microsoft.Azure.WebJobs": "3.0.43",
+          "Microsoft.Azure.WebJobs.Extensions": "5.2.1",
+          "Microsoft.Azure.WebJobs.Extensions.ServiceBus": "5.17.0",
           "Microsoft.EntityFrameworkCore.Design": "10.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "10.0.0",
           "Microsoft.IdentityModel.Tokens": "8.15.0",
@@ -109,6 +112,84 @@
           "lib/net8.0/Azure.Storage.Common.dll": {
             "assemblyVersion": "12.25.0.0",
             "fileVersion": "12.2500.25.51304"
+          }
+        }
+      },
+      "Google.Protobuf/3.24.3": {
+        "runtime": {
+          "lib/net5.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.24.3.0",
+            "fileVersion": "3.24.3.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore/2.49.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.24.3",
+          "Grpc.AspNetCore.Server.ClientFactory": "2.49.0"
+        }
+      },
+      "Grpc.AspNetCore.Server/2.49.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.49.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.AspNetCore.Server.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.49.0.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore.Server.ClientFactory/2.49.0": {
+        "dependencies": {
+          "Grpc.AspNetCore.Server": "2.49.0",
+          "Grpc.Net.ClientFactory": "2.49.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.AspNetCore.Server.ClientFactory.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.49.0.0"
+          }
+        }
+      },
+      "Grpc.Core.Api/2.49.0": {
+        "runtime": {
+          "lib/netstandard2.1/Grpc.Core.Api.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.49.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Client/2.49.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.49.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.Net.Client.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.49.0.0"
+          }
+        }
+      },
+      "Grpc.Net.ClientFactory/2.49.0": {
+        "dependencies": {
+          "Grpc.Net.Client": "2.49.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.Net.ClientFactory.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.49.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Common/2.49.0": {
+        "dependencies": {
+          "Grpc.Core.Api": "2.49.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.Net.Common.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.49.0.0"
           }
         }
       },
@@ -231,6 +312,80 @@
           "lib/net8.0/Microsoft.Azure.Amqp.dll": {
             "assemblyVersion": "2.7.0.0",
             "fileVersion": "2.7.0.0"
+          }
+        }
+      },
+      "Microsoft.Azure.WebJobs/3.0.43": {
+        "dependencies": {
+          "Microsoft.Azure.WebJobs.Core": "3.0.43",
+          "Newtonsoft.Json": "13.0.3",
+          "System.Memory.Data": "8.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Azure.WebJobs.Host.dll": {
+            "assemblyVersion": "3.0.43.0",
+            "fileVersion": "3.0.43.25571"
+          }
+        }
+      },
+      "Microsoft.Azure.WebJobs.Core/3.0.43": {
+        "dependencies": {
+          "System.Memory.Data": "8.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Azure.WebJobs.dll": {
+            "assemblyVersion": "3.0.43.0",
+            "fileVersion": "3.0.43.25571"
+          }
+        }
+      },
+      "Microsoft.Azure.WebJobs.Extensions/5.2.1": {
+        "dependencies": {
+          "Microsoft.Azure.WebJobs": "3.0.43",
+          "NCrontab.Signed": "3.3.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Azure.WebJobs.Extensions.dll": {
+            "assemblyVersion": "5.2.1.0",
+            "fileVersion": "5.2.1.25509"
+          }
+        }
+      },
+      "Microsoft.Azure.WebJobs.Extensions.Rpc/3.0.37": {
+        "dependencies": {
+          "Grpc.AspNetCore": "2.49.0",
+          "Microsoft.Azure.WebJobs.Rpc.Core": "3.0.37"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Azure.WebJobs.Extensions.Rpc.dll": {
+            "assemblyVersion": "3.0.37.0",
+            "fileVersion": "3.0.37.0"
+          }
+        }
+      },
+      "Microsoft.Azure.WebJobs.Extensions.ServiceBus/5.17.0": {
+        "dependencies": {
+          "Azure.Messaging.ServiceBus": "7.20.1",
+          "Google.Protobuf": "3.24.3",
+          "Microsoft.Azure.WebJobs": "3.0.43",
+          "Microsoft.Azure.WebJobs.Extensions.Rpc": "3.0.37",
+          "Microsoft.Extensions.Azure": "1.12.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Azure.WebJobs.Extensions.ServiceBus.dll": {
+            "assemblyVersion": "5.17.0.0",
+            "fileVersion": "5.1700.25.32002"
+          }
+        }
+      },
+      "Microsoft.Azure.WebJobs.Rpc.Core/3.0.37": {
+        "dependencies": {
+          "Microsoft.Azure.WebJobs": "3.0.43"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Azure.WebJobs.Rpc.Core.dll": {
+            "assemblyVersion": "3.0.37.0",
+            "fileVersion": "3.0.37.0"
           }
         }
       },
@@ -661,6 +816,18 @@
           }
         }
       },
+      "Microsoft.Extensions.Azure/1.12.0": {
+        "dependencies": {
+          "Azure.Core": "1.50.0",
+          "Azure.Identity": "1.17.1"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Azure.dll": {
+            "assemblyVersion": "1.12.0.0",
+            "fileVersion": "1.1200.25.31204"
+          }
+        }
+      },
       "Microsoft.Extensions.DependencyModel/10.0.0": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
@@ -791,6 +958,14 @@
           "lib/net6.0/Mono.TextTemplating.dll": {
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.0.0.1"
+          }
+        }
+      },
+      "NCrontab.Signed/3.3.3": {
+        "runtime": {
+          "lib/netstandard2.0/NCrontab.Signed.dll": {
+            "assemblyVersion": "3.3.3.0",
+            "fileVersion": "3.3.3.0"
           }
         }
       },
@@ -1349,6 +1524,62 @@
       "path": "azure.storage.common/12.25.0",
       "hashPath": "azure.storage.common.12.25.0.nupkg.sha512"
     },
+    "Google.Protobuf/3.24.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HX8KHRTJPUcC4KOvEobKBNlMpHGYmK+3X73xPq+OUE2M5dLYvpGhp9qQQWt2jASgTUbxI1yHaGeBqFYiECBupw==",
+      "path": "google.protobuf/3.24.3",
+      "hashPath": "google.protobuf.3.24.3.nupkg.sha512"
+    },
+    "Grpc.AspNetCore/2.49.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IHgWR8YcLnP2Rmz3guK1mOQVDLWL6XZdZT6ktHTTdlTm60FCVwtfrGmEdyu7lEsMzMd2vYHnZ1SwRzicMW4uoA==",
+      "path": "grpc.aspnetcore/2.49.0",
+      "hashPath": "grpc.aspnetcore.2.49.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server/2.49.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-it0nmQi10S/cgC1nk/nVgQiYv5sd/IWnob8SsB3JEpbIFAAKaU6ZjdTKRiATunNtDb/IYBLGeo8BMDoxfewxyw==",
+      "path": "grpc.aspnetcore.server/2.49.0",
+      "hashPath": "grpc.aspnetcore.server.2.49.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server.ClientFactory/2.49.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2a30ebIihiDcJsDq4GAil2LTNY4y4bgPZLpG06WNI/JuxDkRxoQ0myuRHdVlouQ1MzkjixQepEuRvHvNHgvk6w==",
+      "path": "grpc.aspnetcore.server.clientfactory/2.49.0",
+      "hashPath": "grpc.aspnetcore.server.clientfactory.2.49.0.nupkg.sha512"
+    },
+    "Grpc.Core.Api/2.49.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6OTcSQ8iML+xzmELhH4anUZlNM3dHDKPFBsMLSdiT80LJaaZKxwZml/K9ZdfLIjSR/EzdMZzzU2Avbedz4N7BA==",
+      "path": "grpc.core.api/2.49.0",
+      "hashPath": "grpc.core.api.2.49.0.nupkg.sha512"
+    },
+    "Grpc.Net.Client/2.49.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mLXxEJzqnRHseVzRCzSQznA7y8pcSStVbstLTUuQRulN7kREovh82ctNkGpkfwONi/DHoWscX9mJLiAmh0gjOQ==",
+      "path": "grpc.net.client/2.49.0",
+      "hashPath": "grpc.net.client.2.49.0.nupkg.sha512"
+    },
+    "Grpc.Net.ClientFactory/2.49.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4Ac7dsrARbcs1g2vrUSUadtZ0kIGTk6yhA5ccOBjgM+RTzY3L54TgMddmeaV7/Z4f9sZn6T1ls6FmUiG8Dms+Q==",
+      "path": "grpc.net.clientfactory/2.49.0",
+      "hashPath": "grpc.net.clientfactory.2.49.0.nupkg.sha512"
+    },
+    "Grpc.Net.Common/2.49.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G0TVTS8fjCk8b7td/E7C8/ssJPm3JnGVBKsveoj/89PIwIee72qkXG+tVn5c1gwTanEFPdyPoydna/bmU/NAaw==",
+      "path": "grpc.net.common/2.49.0",
+      "hashPath": "grpc.net.common.2.49.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
@@ -1425,6 +1656,48 @@
       "sha512": "sha512-gm/AEakujttMzrDhZ5QpRz3fICVkYDn/oDG9SmxDP+J7R8JDBXYU9WWG7hr6wQy40mY+wjUF0yUGXDPRDRNJwQ==",
       "path": "microsoft.azure.amqp/2.7.0",
       "hashPath": "microsoft.azure.amqp.2.7.0.nupkg.sha512"
+    },
+    "Microsoft.Azure.WebJobs/3.0.43": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5imQjJkeQoXr4c/aGXgoSmcPXsNJEMkAKGfbH0RlJoiN2dyG6N1pGu/JFzAsAxJQ/U3mOHDXctCG3g/I1pRCWw==",
+      "path": "microsoft.azure.webjobs/3.0.43",
+      "hashPath": "microsoft.azure.webjobs.3.0.43.nupkg.sha512"
+    },
+    "Microsoft.Azure.WebJobs.Core/3.0.43": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oEs1hyHgAPvRqroHMYNCOFfHMjcL4DQjxTZNJFVsYqm6yf69zhM36BG2ky323+wbFKRmWhIOjP7B5XJU+QvdQQ==",
+      "path": "microsoft.azure.webjobs.core/3.0.43",
+      "hashPath": "microsoft.azure.webjobs.core.3.0.43.nupkg.sha512"
+    },
+    "Microsoft.Azure.WebJobs.Extensions/5.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uV66tJCT6Vo+Q/4eOpYDCS/xhn9h4OG9LRTITIehUrYSq7Sug+8DjqayAP/shRRWKfql4a1r7n0Ni41AZm2z+w==",
+      "path": "microsoft.azure.webjobs.extensions/5.2.1",
+      "hashPath": "microsoft.azure.webjobs.extensions.5.2.1.nupkg.sha512"
+    },
+    "Microsoft.Azure.WebJobs.Extensions.Rpc/3.0.37": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6tybd5xeTeBEOSy+CjfmDOkc8Xwwb73nmG/rQdInNiPuPX6hl9vTkHeEQATOeG4Sv7t+oJQZPPdT6ZprypmMaQ==",
+      "path": "microsoft.azure.webjobs.extensions.rpc/3.0.37",
+      "hashPath": "microsoft.azure.webjobs.extensions.rpc.3.0.37.nupkg.sha512"
+    },
+    "Microsoft.Azure.WebJobs.Extensions.ServiceBus/5.17.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SCPTHbvnypm3TtbD6GKukx/nOSqRkcteorKAjxfYeZx5FiBrzEcQCu5chb6DzeqDd92w+MWNkAlew4gNH32c7w==",
+      "path": "microsoft.azure.webjobs.extensions.servicebus/5.17.0",
+      "hashPath": "microsoft.azure.webjobs.extensions.servicebus.5.17.0.nupkg.sha512"
+    },
+    "Microsoft.Azure.WebJobs.Rpc.Core/3.0.37": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KG+ZD6u3KKBBv5bet6r1EeLrP6mNFRoPVWuGUToQTZwpTLlPffouag94JR5IxAJA3DxMQl0A0mV+Qkhg9VorCA==",
+      "path": "microsoft.azure.webjobs.rpc.core/3.0.37",
+      "hashPath": "microsoft.azure.webjobs.rpc.core.3.0.37.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",
@@ -1545,6 +1818,13 @@
       "path": "microsoft.entityframeworkcore.sqlite.core/10.0.0",
       "hashPath": "microsoft.entityframeworkcore.sqlite.core.10.0.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.Azure/1.12.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3sIvazPesPdEn5t2yT+pwVWKm1LyN/LB31Wh52giRNf2ckcKmaxW2KOA5uNZHSaqABhMDPAYGMeGBFQreZ7uUg==",
+      "path": "microsoft.extensions.azure/1.12.0",
+      "hashPath": "microsoft.extensions.azure.1.12.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.DependencyModel/10.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1635,6 +1915,13 @@
       "sha512": "sha512-YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
+    },
+    "NCrontab.Signed/3.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YzLZyFiovVnAvvsTDnQygC82KhQyJIMsBspTYvHaK4Fp73UgUCni05mIQgOMZIZDlnO8Mg9fcNi5fpDArgQO4A==",
+      "path": "ncrontab.signed/3.3.3",
+      "hashPath": "ncrontab.signed.3.3.3.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
