@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Ashish-Backend-Folio.props" />
-</Project>

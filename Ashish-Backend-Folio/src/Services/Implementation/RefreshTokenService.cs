@@ -19,7 +19,7 @@
         private readonly TimeSpan _refreshLifetime;
         private readonly bool _useHash;
 
-        public RefreshTokenService(UnitOfWork unitOfWork,
+        public RefreshTokenService(IUnitOfWork unitOfWork,
                                    UserManager<ApplicationUser> userManager,
                                    IConfiguration config)
         {
