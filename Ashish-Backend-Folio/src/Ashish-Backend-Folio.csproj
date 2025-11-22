@@ -29,6 +29,8 @@
 
     <!-- IdentityModel / JWT stack (8.15.0 supports .NET 10) -->
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.15.0" />
+    <PackageReference Include="Polly" Version="8.6.4" />
+    <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
 
     <!-- Logging & Swagger -->

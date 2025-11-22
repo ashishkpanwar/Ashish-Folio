@@ -1,10 +1,11 @@
 ﻿using Ashish_Backend_Folio.Data;
 using Ashish_Backend_Folio.Interfaces;
+using Ashish_Backend_Folio.Messaging;
+using Ashish_Backend_Folio.Middlewares;
 using Ashish_Backend_Folio.Models;
 using Ashish_Backend_Folio.Repositories.Implementation;
 using Ashish_Backend_Folio.Repositories.Interface;
 using Ashish_Backend_Folio.Services.Implementation;
-using Ashish_Backend_Folio.Services.Interface;
 using Ashish_Backend_Folio.Storage.Implementation;
 using Ashish_Backend_Folio.Storage.Interface;
 using Ashish_Backend_Folio.Storage.Models;
@@ -50,7 +51,7 @@ builder.Services.AddSingleton(sp =>
     new BlobServiceClient(new Uri(builder.Configuration["Blob:ServiceUri"]), new DefaultAzureCredential()));
 builder.Services.AddScoped<IBlobService,BlobService>();
 
-builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 
 
 
@@ -62,7 +63,7 @@ builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //service bus
-builder.Services.AddSingleton<IServiceBusPublisher, ServiceBusPublisher>();
+builder.Services.AddSingleton<IEventPublisher, ServiceBusRawPublisher>();
 
 
 
@@ -148,7 +149,11 @@ builder.Services
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddJwtBearer();
+    .AddJwtBearer(options =>
+    {
+     var sp = builder.Services.BuildServiceProvider(); // only acceptable at startup
+     options.TokenValidationParameters = sp.GetRequiredService<TokenValidationParameters>();
+ });
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("RequireAdminRole", policy =>
@@ -189,6 +194,7 @@ app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.UseJwtValidation();
 app.UseAuthorization();
 
 app.MapControllers();

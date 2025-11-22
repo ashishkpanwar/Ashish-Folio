@@ -13,6 +13,8 @@ namespace Ashish_Backend_Folio.Data
         // public DbSet<Project> Projects { get; set; }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
+        public DbSet<FailedOutboxMessage> FailedOutboxMessages { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

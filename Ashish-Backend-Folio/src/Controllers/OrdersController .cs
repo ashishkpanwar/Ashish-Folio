@@ -1,6 +1,7 @@
 ﻿using Ashish_Backend_Folio.Dtos.Request;
-using Ashish_Backend_Folio.Services.Interface;
+using Ashish_Backend_Folio.Messaging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Amqp.Framing;
 
 namespace Ashish_Backend_Folio.Controllers
 {
@@ -8,17 +9,17 @@ namespace Ashish_Backend_Folio.Controllers
     [Route("api/orders")]
     public class OrdersController : ControllerBase
     {
-        private readonly IServiceBusPublisher _publisher;
+        private readonly ServiceBusRawPublisher _publisher;
 
-        public OrdersController(IServiceBusPublisher publisher)
+        public OrdersController(ServiceBusRawPublisher publisher)
         {
             _publisher = publisher;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(OrderRequest dto)
+        public async Task<IActionResult> CreateOrder()
         {
-            await _publisher.PublishAsync("orders-topic", dto);
+            await _publisher.PublishAsync(new());
             return Accepted();
         }
     }
