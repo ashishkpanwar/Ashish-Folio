@@ -1,4 +1,4 @@
-﻿using Ashish_Backend_Folio.Models;
+﻿using Ashish_Backend_Folio.Data.Models;
 
 namespace Ashish_Backend_Folio.Interfaces
 {

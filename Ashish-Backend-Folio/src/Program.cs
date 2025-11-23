@@ -1,8 +1,8 @@
 ﻿using Ashish_Backend_Folio.Data;
+using Ashish_Backend_Folio.Data.Repositories.Implementation;
+using Ashish_Backend_Folio.Data.Repositories.Interface;
 using Ashish_Backend_Folio.Interfaces;
-using Ashish_Backend_Folio.Models;
-using Ashish_Backend_Folio.Repositories.Implementation;
-using Ashish_Backend_Folio.Repositories.Interface;
+using Ashish_Backend_Folio.Data.Models;
 using Ashish_Backend_Folio.Services.Implementation;
 using Ashish_Backend_Folio.Services.Interface;
 using Ashish_Backend_Folio.Storage.Implementation;

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Ashish_Backend_Folio.Migrations
+namespace Ashish_Backend_Folio.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20251118065340_InitialIdentitySchema")]

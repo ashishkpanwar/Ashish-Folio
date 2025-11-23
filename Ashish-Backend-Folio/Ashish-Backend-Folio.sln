@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33815.320
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11217.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ashish-Backend-Folio", "src\Ashish-Backend-Folio.csproj", "{F4290AD4-5094-4684-A031-AB6867EA4474}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFunctions", "..\MyFunctions\MyFunctions.csproj", "{1D09A09C-D909-DF43-AFFD-84436296244C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ashish-folio.data", "ashish-folio.data\ashish-folio.data.csproj", "{499DDCB6-E8FC-4424-800C-2BDE12723A8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{F4290AD4-5094-4684-A031-AB6867EA4474}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4290AD4-5094-4684-A031-AB6867EA4474}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4290AD4-5094-4684-A031-AB6867EA4474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D09A09C-D909-DF43-AFFD-84436296244C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D09A09C-D909-DF43-AFFD-84436296244C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D09A09C-D909-DF43-AFFD-84436296244C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D09A09C-D909-DF43-AFFD-84436296244C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{499DDCB6-E8FC-4424-800C-2BDE12723A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{499DDCB6-E8FC-4424-800C-2BDE12723A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{499DDCB6-E8FC-4424-800C-2BDE12723A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{499DDCB6-E8FC-4424-800C-2BDE12723A8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

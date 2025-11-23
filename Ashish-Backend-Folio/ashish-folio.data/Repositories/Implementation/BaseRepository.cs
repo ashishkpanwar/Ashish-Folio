@@ -1,8 +1,7 @@
-﻿using Ashish_Backend_Folio.Data;
-using Ashish_Backend_Folio.Repositories.Interface;
+﻿using Ashish_Backend_Folio.Data.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ashish_Backend_Folio.Repositories.Implementation
+namespace Ashish_Backend_Folio.Data.Repositories.Implementation
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {

@@ -1,4 +1,4 @@
-﻿namespace Ashish_Backend_Folio.Repositories.Interface
+﻿namespace Ashish_Backend_Folio.Data.Repositories.Interface
 {
     public interface IUnitOfWork
     {

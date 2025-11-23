@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ashish_Backend_Folio.Models
+namespace Ashish_Backend_Folio.Data.Models
 {
     // Models/RefreshToken.cs
     public class RefreshToken

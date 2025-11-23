@@ -8,7 +8,7 @@ using Ashish_Backend_Folio.Data;
 using Ashish_Backend_Folio.Dtos.Request;
 using Ashish_Backend_Folio.Dtos.Response;
 using Ashish_Backend_Folio.Dtos.Common;
-using Ashish_Backend_Folio.Models;
+using Ashish_Backend_Folio.Data.Models;
 
 namespace Ashish_Backend_Folio.Controllers
 {
