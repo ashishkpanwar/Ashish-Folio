@@ -1,13 +1,12 @@
 ﻿using System.Text.Json;
 using Ashish_Backend_Folio.Dtos.Request;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
 
 namespace Ashish_Backend_Folio.Azure_Functions
 {
     public class OrderConsumer
     {
-        [FunctionName("OrderConsumer")]
+       [FunctionName("OrderConsumer")]
         public async Task Run(
        [ServiceBusTrigger("orders-topic", "orders-subscription", Connection = "ServiceBusConnection")]
         string data,
