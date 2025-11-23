@@ -2,6 +2,6 @@
 {
     public interface IServiceBusPublisher
     {
-        Task PublishAsync<T>(string entityName, T payload);
+        Task PublishAsync<T>(T payload);
     }
 }

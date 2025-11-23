@@ -9,11 +9,13 @@ using Ashish_Backend_Folio.Storage.Implementation;
 using Ashish_Backend_Folio.Storage.Interface;
 using Ashish_Backend_Folio.Storage.Models;
 using Azure.Identity;
+using Azure.Messaging.ServiceBus;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -51,6 +53,10 @@ builder.Services.AddSingleton(sp =>
 builder.Services.AddScoped<IBlobService,BlobService>();
 
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
+
+//messaging
+var sbUrl = builder.Configuration["Messaging:ServiceBusConn"]; // e.g., https://myvault.vault.azure.net/
+builder.Services.AddSingleton(new ServiceBusClient(sbUrl, new DefaultAzureCredential()));
 
 
 

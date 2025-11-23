@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "Ashish_Backend_Folio.Controllers.OrdersController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/orders",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Ashish_Backend_Folio.Dtos.Request.OrderRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Ashish_Backend_Folio.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/v1/Auth/login",

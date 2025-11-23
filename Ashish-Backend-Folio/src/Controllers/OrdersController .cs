@@ -18,7 +18,7 @@ namespace Ashish_Backend_Folio.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder(OrderRequest dto)
         {
-            await _publisher.PublishAsync("orders-topic", dto);
+            await _publisher.PublishAsync(dto);
             return Accepted();
         }
     }

@@ -10,24 +10,14 @@ namespace Ashish_Backend_Folio.Services.Implementation
 
         private readonly ServiceBusClient _client;
 
-        public ServiceBusPublisher(IConfiguration config)
+        public ServiceBusPublisher(ServiceBusClient client)
         {
-            var conn = config["ServiceBus:ConnectionString"];
-
-            if (!string.IsNullOrEmpty(conn))
-                _client = new ServiceBusClient(conn);
-            else
-            {
-                _client = new ServiceBusClient(
-                    config["ServiceBus:Namespace"],
-                    new DefaultAzureCredential()
-                );
-            }
+            _client = client;
         }
 
-        public async Task PublishAsync<T>(string entityName, T payload)
+        public async Task PublishAsync<T>(T payload)
         {
-            var sender = _client.CreateSender(entityName);
+            var sender = _client.CreateSender("ashish-folio-sb-queue");
             var json = JsonSerializer.Serialize(payload);
             var message = new ServiceBusMessage(json)
             {
