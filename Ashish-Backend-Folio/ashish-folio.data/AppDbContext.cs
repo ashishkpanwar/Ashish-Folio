@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Ashish_Backend_Folio.Data.Models;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace Ashish_Backend_Folio.Data
 {
