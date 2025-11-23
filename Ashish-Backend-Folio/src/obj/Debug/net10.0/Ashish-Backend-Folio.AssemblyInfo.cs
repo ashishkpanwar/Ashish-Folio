@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ashish-Backend-Folio")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3467c7b17a4e9648ed5f578816f614384f7aff9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2fce4765b2d77169aa3cc490aeed0d60754efa7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ashish-Backend-Folio")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ashish-Backend-Folio")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

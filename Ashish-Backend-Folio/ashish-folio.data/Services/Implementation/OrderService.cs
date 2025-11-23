@@ -48,7 +48,7 @@ namespace ashish_folio.data.Services.Implementation
             catch (DbUpdateException ex)
             {
                 // Unique index may race — handle like processed tracker
-                _logger.LogWarning(ex, "Order insert conflict for {OrderId}; assuming already processed", dto.OrderId);
+                _logger.LogWarning(ex, "Order insert conflict for {OrderId}; assuming already processed", dto.orderId);
             }
 
             // Optionally: publish downstream events, update other aggregates, etc.

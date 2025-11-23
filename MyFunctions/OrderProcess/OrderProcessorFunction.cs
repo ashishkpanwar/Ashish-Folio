@@ -34,7 +34,7 @@ namespace MyFunctions.Functions
 
         [Function("ProcessOrder")]
         public async Task RunAsync(
-            [ServiceBusTrigger("orders-topic", "orders-subscription", Connection = "ServiceBusConnection")]
+        [ServiceBusTrigger("orders-topic", "orders-subscription", Connection = "ServiceBusConnection")]
         ServiceBusReceivedMessage message,
             FunctionContext context)
         {

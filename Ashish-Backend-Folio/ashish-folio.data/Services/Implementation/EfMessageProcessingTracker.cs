@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ashish_Backend_Folio.data.Models;
-using ashish_folio.data.Services.Interfaces;
+using Ashish_Backend_Folio.Data.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ashish_Backend_Folio.Data.Services.Implementation
