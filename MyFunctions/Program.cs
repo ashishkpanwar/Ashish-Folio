@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 
 
 var host = new HostBuilder()
-    //.ConfigureFunctionsWorkerDefaults()
+    .ConfigureFunctionsWebApplication()
     .ConfigureAppConfiguration((ctx, cfg) =>
     {
         cfg.AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
@@ -23,6 +23,7 @@ var host = new HostBuilder()
         var config = ctx.Configuration;
         var connString = config.GetConnectionString("DefaultConnection");
 
+
         // DbContext - uses connection string from local.settings.json or Azure App Settings
         services.AddDbContext<AppDbContext>(opts =>
             opts.UseSqlite(config.GetConnectionString(connString)),
@@ -30,12 +31,6 @@ var host = new HostBuilder()
 
         services.AddScoped<IMessageProcessingTracker, EfMessageProcessingTracker>();
         services.AddScoped<IOrderService, OrderService>();
-
-        // domain services used by function
-        //services.AddScoped<IOrderService, OrderService>(); // implement in function or shared lib
-
-        // idempotency tracker
-        //services.AddScoped<IMessageProcessingTracker, EfMessageProcessingTracker>();
 
         // ServiceBus client (singleton) - prefer connection string in local dev; MI in production
         var sbNs = config["ServiceBusConnection"];

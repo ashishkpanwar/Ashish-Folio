@@ -20,7 +20,7 @@ namespace MyFunctions.Functions
         // Note: subscriptionName + "/$DeadLetterQueue" is how you trigger DLQ for a topic subscription
         [Function("ProcessDeadLetter")]
         public async Task RunAsync(
-        [ServiceBusTrigger("orders-topic", "orders-subscription/$DeadLetterQueue", Connection = "ServiceBusConnection")]
+        [ServiceBusTrigger("ashish-folio-sb-queue", Connection = "ServiceBusConnection")]
         ServiceBusReceivedMessage deadMessage,
             FunctionContext context)
         {

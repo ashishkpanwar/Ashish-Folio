@@ -150,17 +150,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderRequest"
+                "$ref": "#/components/schemas/OrderDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderRequest"
+                "$ref": "#/components/schemas/OrderDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderRequest"
+                "$ref": "#/components/schemas/OrderDto"
               }
             }
           }
@@ -228,7 +228,7 @@
         },
         "additionalProperties": false
       },
-      "OrderRequest": {
+      "OrderDto": {
         "type": "object",
         "properties": {
           "name": {

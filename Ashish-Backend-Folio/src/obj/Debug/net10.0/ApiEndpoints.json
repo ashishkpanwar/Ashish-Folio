@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Ashish_Backend_Folio.Dtos.Request.OrderRequest",
+        "Type": "Ashish_Backend_Folio.Data.Dtos.OrderDto",
         "IsRequired": true
       }
     ],
