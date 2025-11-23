@@ -10,7 +10,7 @@ namespace Ashish_Backend_Folio.Models
         public string MessageId { get; set; }
         public string ContentType { get; set; }
         public byte[] Payload { get; set; }
-        public object PropertiesJson { get; set; }
+        public string PropertiesJson { get; set; }
         public string FailureReason { get; set; }
         public DateTime CreatedAt { get; set; }
         public int Retries { get; set; }

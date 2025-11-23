@@ -1,6 +1,7 @@
 ﻿using Ashish_Backend_Folio.Data;
 using Ashish_Backend_Folio.Interfaces;
 using Ashish_Backend_Folio.Messaging;
+using Ashish_Backend_Folio.Messaging.Policies;
 using Ashish_Backend_Folio.Middlewares;
 using Ashish_Backend_Folio.Models;
 using Ashish_Backend_Folio.Repositories.Implementation;
@@ -10,6 +11,7 @@ using Ashish_Backend_Folio.Storage.Implementation;
 using Ashish_Backend_Folio.Storage.Interface;
 using Ashish_Backend_Folio.Storage.Models;
 using Azure.Identity;
+using Azure.Messaging.ServiceBus;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,6 +54,39 @@ builder.Services.AddSingleton(sp =>
 builder.Services.AddScoped<IBlobService,BlobService>();
 
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
+
+//messaging
+var useServiceBus = builder.Configuration.GetValue<bool>("Messaging:UseServiceBus");
+
+if (useServiceBus)
+{
+    // ServiceBusClient registration (singleton)
+    var sbConn = builder.Configuration["ServiceBus:ConnectionString"];
+    if (!string.IsNullOrEmpty(sbConn))
+        builder.Services.AddSingleton(_ => new ServiceBusClient(sbConn));
+    else
+        builder.Services.AddSingleton(sp => new ServiceBusClient(builder.Configuration["ServiceBus:Namespace"], new DefaultAzureCredential()));
+
+    // raw publisher
+    builder.Services.AddSingleton<ServiceBusRawPublisher>();
+
+    // core pipeline: raw -> idempotency -> retry -> fallback -> telemetry
+    builder.Services.AddSingleton<IEventPublisher>(sp =>
+    {
+        IEventPublisher raw = sp.GetRequiredService<ServiceBusRawPublisher>();
+        IEventPublisher idemp = new IdempotencyDecorator(raw);
+        IEventPublisher retry = new RetryPublisherDecorator(idemp, sp.GetRequiredService<ILogger<RetryPublisherDecorator>>());
+        IEventPublisher fallback = new FallbackDecorator(retry, sp.GetRequiredService<IFailedMessageStore>(), sp.GetRequiredService<ILogger<FallbackDecorator>>());
+        // Wrap telemetry last or first depending on needs
+        return fallback;
+    });
+}
+else
+{
+    // Replace with Kafka/other provider registration
+    //builder.Services.AddSingleton<IEventPublisher, KafkaPublisher>();
+}
+
 
 
 

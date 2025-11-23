@@ -236,8 +236,8 @@
             "nullable": true
           },
           "orderId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

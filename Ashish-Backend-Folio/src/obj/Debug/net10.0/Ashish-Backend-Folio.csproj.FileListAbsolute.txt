@@ -218,7 +218,6 @@ D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\staticwebassets.build
 D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\staticwebassets.development.json
 D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\swae.build.ex.cache
-D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\Ashish-B.6352AAE0.Up2Date
 D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\Ashish-Backend-Folio.dll
 D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\refint\Ashish-Backend-Folio.dll
@@ -264,3 +263,7 @@ D:\Ashish-Folio\Ashish-Backend-Folio\src\bin\Debug\net10.0\Microsoft.Azure.WebJo
 D:\Ashish-Folio\Ashish-Backend-Folio\src\bin\Debug\net10.0\Microsoft.Azure.WebJobs.Rpc.Core.dll
 D:\Ashish-Folio\Ashish-Backend-Folio\src\bin\Debug\net10.0\Microsoft.Extensions.Azure.dll
 D:\Ashish-Folio\Ashish-Backend-Folio\src\bin\Debug\net10.0\NCrontab.Signed.dll
+D:\Ashish-Folio\Ashish-Backend-Folio\src\bin\Debug\net10.0\Polly.dll
+D:\Ashish-Folio\Ashish-Backend-Folio\src\bin\Debug\net10.0\Polly.Core.dll
+D:\Ashish-Folio\Ashish-Backend-Folio\src\bin\Debug\net10.0\Polly.Extensions.Http.dll
+D:\Ashish-Folio\Ashish-Backend-Folio\src\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

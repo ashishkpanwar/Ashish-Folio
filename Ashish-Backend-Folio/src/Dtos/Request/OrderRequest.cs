@@ -3,6 +3,6 @@
     public class OrderRequest
     {
         public string name {  get; set; }
-        public int OrderId { get; set; }
+        public string orderId { get; set; }
     }
 }

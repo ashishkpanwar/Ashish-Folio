@@ -15,7 +15,7 @@ namespace Ashish_Backend_Folio.Azure_Functions
         {
             var order = JsonSerializer.Deserialize<OrderRequest>(data);
 
-            log.LogInformation("Received order {OrderId}", order?.OrderId);
+            log.LogInformation("Received order {OrderId}", order?.orderId);
 
             // TODO: process order, call APIs, update DB, etc.
 
