@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Azure.Messaging.ServiceBus": {
+              "target": "Package",
+              "version": "[7.20.1, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.22, )"
@@ -701,6 +705,10 @@
             "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore": {
               "target": "Package",
               "version": "[2.1.0, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Extensions.ServiceBus": {
+              "target": "Package",
+              "version": "[5.24.0, )"
             },
             "Microsoft.Azure.Functions.Worker.Sdk": {
               "target": "Package",

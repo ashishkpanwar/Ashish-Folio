@@ -1,5 +1,6 @@
 ﻿using Ashish_Backend_Folio.Dtos.Request;
 using Ashish_Backend_Folio.Services.Interface;
+using Ashish_Backend_Folio.Data.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ashish_Backend_Folio.Controllers
@@ -16,7 +17,7 @@ namespace Ashish_Backend_Folio.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(OrderRequest dto)
+        public async Task<IActionResult> CreateOrder(OrderDto dto)
         {
             await _publisher.PublishAsync(dto);
             return Accepted();
