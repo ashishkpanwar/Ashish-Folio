@@ -26,7 +26,7 @@ var host = new HostBuilder()
 
         // DbContext - uses connection string from local.settings.json or Azure App Settings
         services.AddDbContext<AppDbContext>(opts =>
-            opts.UseSqlite(config.GetConnectionString(connString)),
+            opts.UseSqlServer(config.GetConnectionString(connString)),
             ServiceLifetime.Scoped);
 
         services.AddScoped<IMessageProcessingTracker, EfMessageProcessingTracker>();
