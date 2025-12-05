@@ -1,41 +1,56 @@
-name: CI
+name: Deploy .NET API to Azure App Service
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ main ]  # Trigger on pushes to main (change if you use a different branch)
+  workflow_dispatch:    # Allow manual runs from the GitHub Actions UI
+
+env:
+  AZURE_WEBAPP_NAME: ashish-folio-api           # e.g., ashish-webapp
+  AZURE_WEBAPP_RESOURCE_GROUP: Ashish-folio   # e.g., rg-apps-prod
+  DOTNET_VERSION: "10.0"                              # Use the SDK that matches your project (can build .NET 10 target too)
+  CONNECTION_STRING_NAME: DefaultConnection          # Name used by builder.Configuration.GetConnectionString(...)
 
 jobs:
-  build-backend:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '7.0.x'
-      - name: Restore & Build
-        run: |
-          cd backend/src
-          dotnet restore
-          dotnet build --no-restore --configuration Release
-      - name: Run tests
-        run: |
-          cd backend/tests
-          dotnet test --no-build --verbosity normal
 
-  build-frontend:
-    runs-on: ubuntu-latest
-    needs: build-backend
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
         with:
-          node-version: '18'
-      - name: Install & Build Angular
-        run: |
-          cd frontend
-          npm ci
-          npm run build --if-present
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish --no-build
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          # Store the JSON of an Azure Service Principal in a GitHub secret named AZURE_CREDENTIALS
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Configure App Service connection string (Managed Identity)
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az webapp config connection-string set \
+              --resource-group $AZURE_WEBAPP_RESOURCE_GROUP \
+              --name $AZURE_WEBAPP_NAME \
+              --settings $CONNECTION_STRING_NAME="Server=tcp:yourserver.database.windows.net,1433;Database=yourdb;Authentication=Active Directory Default;Encrypt=true;TrustServerCertificate=false;" \
+              --connection-string-type SQLAzure
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ./publish
