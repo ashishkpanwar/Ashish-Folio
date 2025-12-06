@@ -50,7 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MyFunctions\MyFunctions.csproj" />
     <ProjectReference Include="..\ashish-folio.data\ashish-folio.data.csproj" />
   </ItemGroup>
 

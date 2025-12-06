@@ -30,7 +30,7 @@ jobs:
       - name: Build API
         run: dotnet build ./Ashish-Backend-Folio/src/Ashish-Backend-Folio.csproj --configuration Release --no-restore
 
-      - name: Publish
+      - name: Publish API
         run: dotnet publish ./Ashish-Backend-Folio/src/Ashish-Backend-Folio.csproj --configuration Release --output ./publish-api --no-build
 
       - name: Login to Azure
