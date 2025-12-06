@@ -27,11 +27,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+      - name: Build API
+        run: dotnet build Ashish-Folio.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish --configuration Release --output ./publish --no-build
+        run: dotnet publish Ashish-Folio.csproj --configuration Release --output ./publish-api --no-build
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -53,4 +53,4 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ./publish
+          package: ./publish-api
