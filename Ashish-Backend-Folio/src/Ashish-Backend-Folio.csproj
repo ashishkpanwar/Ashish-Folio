@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helper\**" />
+    <Content Remove="Helper\**" />
+    <EmbeddedResource Remove="Helper\**" />
+    <None Remove="Helper\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- ASP.NET Core 10 auth & Identity -->
     <PackageReference Include="Azure.Identity" Version="1.17.1" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.1" />
@@ -40,10 +47,6 @@
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
 	 <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helper\" />
   </ItemGroup>
 
   <ItemGroup>
