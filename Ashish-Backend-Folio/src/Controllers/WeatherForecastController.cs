@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ashish_Backend_Folio.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
